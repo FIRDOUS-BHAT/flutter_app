@@ -5,44 +5,35 @@ void main(){
   runApp(MaterialApp(
       title: "Exploring UI",
       home: Scaffold(
-        appBar: AppBar(title: Text("Basic List View"),),
-        body: getListView(),
+        appBar: AppBar(title: Text("Long List"),),
+        body: getListView()
       ),
   ));
 }
 
+List<String> getListElelments(){
+  var items = List<String>.generate(1000, (counter) => "Item $counter");
+  return items;
+}
+
 Widget getListView(){
 
-  var listView = ListView(
-    children: <Widget>[
+  var listItems = getListElelments();
 
-      ListTile(
-        leading: Icon(Icons.landscape),
-        title: Text("Landscape"),
-        subtitle: Text("Beautiful View !"),
-        trailing: Icon(Icons.wb_sunny),
-        onTap: (){
-          debugPrint("Landscape Tapped");
-        },
-      ),
+  var listView = ListView.builder(
+      itemBuilder: (context,index){
 
-      ListTile(
-        leading: Icon(Icons.landscape),
-        title: Text("Windows"),
+        return ListTile(
+          leading: Icon(Icons.arrow_right),
+          title: Text(listItems[index]),
+          onTap: (){
 
-      ),
+            debugPrint('${listItems[index]} was tapped');
+          },
+        );
 
-      ListTile(
-        leading: Icon(Icons.landscape),
-        title: Text("Phone"),
-      ),
-
-      Text("Yet another element in List"),
-
-      Container(color: Colors.red,height: 50.0,)
-
-
-    ],
+      }
   );
-      return listView;
+
+  return listView;
 }
